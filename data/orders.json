@@ -1,0 +1,52 @@
+[
+  {
+    "idPerson": 1,
+    "orders": [
+      {
+        "id": "#ORD-2024-1278",
+        "date": "05/2025",
+        "status": "Delivered",
+        "products": [
+          {
+            "idProduct": 5,
+            "quantity": 1,
+            "price": 670
+          },
+          {
+            "idProduct": 7,
+            "quantity": 2,
+            "price": 10.99
+          }
+        ]
+      },
+      {
+        "id": "ORD-2024-1265",
+        "date": "09/2025",
+        "status": "Delivered",
+        "products": [
+          {
+            "idProduct": 15,
+            "quantity": 3,
+            "price": 49.99
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "idPerson": 2,
+    "orders": [
+      {
+        "id": "#ORD-2025-1278",
+        "date": "06/2025",
+        "products": [
+          {
+            "idProduct": 18,
+            "quantity": 55,
+            "price": 8.99
+          }
+        ]
+      }
+    ]
+  }
+]
