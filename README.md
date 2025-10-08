@@ -1,18 +1,18 @@
 # E-commerce
-E-commerce - приложение электронной коммерции, разработанное с использованием **Vue 3 + TypeScript + Vite**.
-Приложение включает такие страницы как домашняя, информация о магазине, каталог товаров, карточка товара, корзина, оформление заказа, личный кабинет, контакты.
+An e-commerce application developed using Vue 3 + TypeScript + Vite.
+The application includes such pages as home, store information, product catalog, product card, shopping cart, checkout, personal account, contacts.
 
-## Особенности
+## Features
 
--  Многостраничный сайт.
--  Каталог товаров с фильтрацией и сортировкой.
--  Карточка товара.
--  Страница корзины.
--  Страница оформления заказа.
--  Личный кабинет.
--  Адаптивный дизайн.
+- Multi-page website
+- Product catalog with filtering and sorting
+- Product card
+- The shopping cart page
+- The checkout page
+- Personal account
+- Adaptive design
 
-## Используемые технологии
+## Technologies used
 
 -  Vue 3
 -  TypeScript
@@ -24,7 +24,11 @@ E-commerce - приложение электронной коммерции, р�
 -  AOS
 -  Vue-countdown
 
-## Структура проекта
+## Live Demo
+
+Check out the live demo: [E-commerce](https://olga-zyukina.github.io/e-commerce-vue3-vite/dist/)
+
+## Project Structure
 
 ```
 src/
@@ -35,35 +39,33 @@ src/
 └── App.vue         # Корневой компонент
 ```
 
-## Подробные характеристики
+## Features in Detail
 
-### Фильтрация, поиск и сортировка товаров в каталоге
--  Фильтр товаров по категории и цене.
--  Поиск товаров по наименованию.
--  Сортировка товаров по цене, рейтингу, популярности.
--  Отображение товаров по количеству или всего списка.
+### Filtering, searching and sorting of products in the catalog
+- Filter products by category and price;
+- Search for products by name;
+- Sorting of products by price, rating, popularity;
+- Display of products by quantity or the entire list.
 
-### Корзина
--  Добавление товара из каталога в корзину.
--  Добавление товара из карточки товара в корзину.
--  Добавление товара из раздела Избранное в корзину.
+### Shopping Cart
+- Adding an item from the catalog to the shopping cart;
+- Adding an item from the product card to the shopping cart;
+- Adding an item from the Favorites section to the shopping cart.
 
-### Оформление заказа
--  Отдельная страница для оформления заказа.
--  Валидация данных.
+### Making an order
+- A separate page for placing an order;
+- Data validation.
 
-### Личный кабинет
--  Персональная информация.
--  Раздел Заказы.
--  Раздел Избранное.
--  Раздел Способы оплаты.
--  Раздел Отзывы.
--  Раздел Настройки.
-
-### Пользовательский интерфейс
--  Чистый и современный дизайн.
--  Адаптивный макет для всех размеров экрана.
--  Плавные переходы и анимация.
+### Personal account
+- Personal information;
+- The Orders section;
+- The Favorites section;
+- Payment Methods section;
+- Reviews section;
+- Settings section;
+- Clean and modern design;
+- Adaptive layout for all screen sizes;
+- Smooth transitions and animations.
 
 <div><img src="https://github.com/Olga-Zyukina/e-commerce-vue3-vite/blob/master/Screenshot.png" title="e-commerce-vue3-vite" alt="e-commerce-vue3-vite"/></div>
 
