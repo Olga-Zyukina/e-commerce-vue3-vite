@@ -32,11 +32,11 @@ Check out the live demo: [E-commerce](https://olga-zyukina.github.io/e-commerce-
 
 ```
 src/
-├── components/     # Компоненты
-├── pages/          # Страницы
-├── services/       # Функции
-├── assets/         # Cтатические файлы
-└── App.vue         # Корневой компонент
+├── components/     # Vue components
+├── pages/          # Vue pages
+├── services/       # Functions
+├── assets/         # Static assets
+└── App.vue         # Root component
 ```
 
 ## Features in Detail
