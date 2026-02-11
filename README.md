@@ -68,4 +68,10 @@ src/
 - Smooth transitions and animations.
 
 <div><img src="https://github.com/Olga-Zyukina/e-commerce-vue3-vite/blob/master/Screenshot.png" title="e-commerce-vue3-vite" alt="e-commerce-vue3-vite"/></div>
+Catalog page
+<div><img src="https://github.com/Olga-Zyukina/e-commerce-vue3-vite/blob/master/Screenshot_catalog.png" title="e-commerce-vue3-vite" alt="e-commerce-vue3-vite"/></div>
+Product page
+<div><img src="https://github.com/Olga-Zyukina/e-commerce-vue3-vite/blob/master/Screenshot_product.png" title="e-commerce-vue3-vite" alt="e-commerce-vue3-vite"/></div>
+Personal account page
+<div><img src="https://github.com/Olga-Zyukina/e-commerce-vue3-vite/blob/master/Screenshot_account.png" title="e-commerce-vue3-vite" alt="e-commerce-vue3-vite"/></div>
 
