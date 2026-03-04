@@ -1,4 +1,4 @@
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import axios from "axios";
 import { defineStore } from "pinia";
 import {
@@ -7,10 +7,24 @@ import {
   URL_PERSONS,
   URL_ORDERS,
 } from "../constants/api";
+import type { ProductsListData } from '../types/index';
 
 export const useRootStore = defineStore("root", () => {
-  const products: any = ref([]);
-  const categories: any = ref([]);
+  const products = ref<Omit<ProductsListData, "rate" | "count">[]>([
+    {
+      id: 0,
+      title: "",
+      price: 0,
+      description: "",
+      category: "",
+      image: "",
+      rating: {
+        rate: 0,
+        count: 0,
+      },
+    },
+  ]);
+  const categories = ref<string[]>([]);
   const cartItems: any = ref([]);
   const error: any = ref(null);
   const taxes: any = ref([]);
@@ -26,14 +40,25 @@ export const useRootStore = defineStore("root", () => {
   const product14 = computed(() => getProduct(14));
 
   const getProduct = (_id: number) => {
-    return products.value.find(({ id }: { id: number }) => id == _id);
+    return products?.value?.find(({ id }: { id: number }) => id == _id) || {
+      id: 0,
+      title: "",
+      price: 0,
+      description: "",
+      category: "",
+      image: "",
+      rating: {
+        rate: 0,
+        count: 0,
+      },
+    };
   };
   async function fetchProducts() {
     try {
       const data = await axios.get(URL_ALL_PRODUCTS);
       products.value = data?.data;
       categories.value = [
-        ...new Set(data?.data.map((p: { category: any }) => p.category)),
+        ...new Set<string>(data?.data.map((p: { category: string }) => p.category))
       ];
     } catch (e) {
       console.error("API Error:", e);
@@ -73,7 +98,7 @@ export const useRootStore = defineStore("root", () => {
     try {
       const data = await axios.get(URL_PERSONS);
       person.value = data?.data.find(
-        (item: { id: any }) => item.id == idPersons
+        (item: { id: any }) => item.id == idPersons,
       );
       countWish.value = person.value.wish.length;
     } catch (e) {
@@ -95,7 +120,7 @@ export const useRootStore = defineStore("root", () => {
     try {
       const data = await axios.get(URL_ORDERS);
       orders.value = data?.data.find(
-        (item: { idPerson: any }) => item.idPerson == idPersons
+        (item: { idPerson: any }) => item.idPerson == idPersons,
       );
       countOrders.value = orders.value.orders.length;
     } catch (e) {
@@ -116,13 +141,13 @@ export const useRootStore = defineStore("root", () => {
   function addToCart(idProduct: number, count: any = 1) {
     if (products.value) {
       const addItem: any = cartItems.value.find(
-        ({ id }: { id: number }) => id == idProduct
+        ({ id }: { id: number }) => id == idProduct,
       );
       if (addItem) {
         addItem.quantity = addItem.quantity + count;
       } else {
         const newsItem: any = products.value.find(
-          ({ id }: { id: number }) => id == idProduct
+          ({ id }: { id: number }) => id == idProduct,
         );
         if (newsItem) {
           newsItem.quantity = count;
@@ -143,6 +168,7 @@ export const useRootStore = defineStore("root", () => {
       throw new Error("No news data available");
     }
   }
+watch(() => person.value, fetchPersons);
   return {
     products,
     cartItems,
@@ -164,6 +190,6 @@ export const useRootStore = defineStore("root", () => {
     fetchOrders,
     addToCart,
     addToWish,
-    getProduct
+    getProduct,
   };
 });

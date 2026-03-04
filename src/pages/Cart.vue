@@ -18,7 +18,7 @@ const decrease = (item: { quantity: number; }) => {
     item.quantity -= 1;
   }
 }
-const remove = (index: any) => {
+const remove = (index: string | number) => {
   cartItems.value.splice(index, 1);
 }
 </script>

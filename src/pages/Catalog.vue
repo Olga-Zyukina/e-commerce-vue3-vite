@@ -140,7 +140,7 @@ onMounted(() => {
               <h3 class="widget-title">Filter by Category</h3>
               <div class="category-filter-content">
                 <div class="category-filter-list">
-                  <div v-for="category in rootStore.categories" :key="rootStore.categories"
+                  <div v-for="category in rootStore.categories"
                     class="category-filter-item">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" :id="category" v-bind:value="category"

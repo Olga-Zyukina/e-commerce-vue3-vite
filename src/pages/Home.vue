@@ -3,9 +3,19 @@ import { computed, onMounted, ref, watch } from "vue";
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
 import { useRootStore } from '../stores/root';
+import type { ProductsListData } from '../types/index';
 
 const rootStore = useRootStore();
-const productsList: any = ref([]);
+const productsList = ref<Omit<ProductsListData, "rating">[]>([{
+        id: 0,
+        title: '',
+        price: 0,
+        description: '',
+        category: '',
+        image: '',
+        rate: 0,
+        count: 0,
+}]);
 const loading = ref(true);
 const products = computed(() => rootStore.products);
 const bestSellers = computed(() => {
@@ -21,8 +31,8 @@ const featured = computed(() => {
 const fetchData = async () => {
   if (products.value) {
     loading.value = true;
-    Object.values(products.value).forEach((value: any) => {
-      const newsItem: any = {
+    Object.values(products.value).forEach((value: Omit<ProductsListData, "rate" | "count">) => {
+      const newsItem: Omit<ProductsListData, "rating"> = {
         id: value.id,
         title: value.title,
         price: value.price,
