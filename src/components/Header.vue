@@ -44,9 +44,6 @@ const navToogle = () => {
 
 onMounted(() => {
   topSwiper();
-  if (rootStore.countCartItems == 0) {
-    rootStore.addToCart(14);
-  };
   navToogle();
 })
 </script>

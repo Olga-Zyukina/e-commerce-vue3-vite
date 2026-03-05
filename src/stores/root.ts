@@ -1,4 +1,4 @@
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
 import axios from "axios";
 import { defineStore } from "pinia";
 import {
@@ -7,7 +7,7 @@ import {
   URL_PERSONS,
   URL_ORDERS,
 } from "../constants/api";
-import type { ProductsListData } from '../types/index';
+import type { ProductsListData, PersonData, CartItemsData, OrderData } from '../types/index';
 
 export const useRootStore = defineStore("root", () => {
   const products = ref<Omit<ProductsListData, "rate" | "count">[]>([
@@ -25,14 +25,58 @@ export const useRootStore = defineStore("root", () => {
     },
   ]);
   const categories = ref<string[]>([]);
-  const cartItems: any = ref([]);
-  const error: any = ref(null);
-  const taxes: any = ref([]);
-  const person: any = ref([]);
-  const idPersons: any = ref(1);
-  const orders: any = ref([]);
-  const countWish: any = ref(null);
-  const countOrders: any = ref(null);
+  const cartItems = ref<Omit<CartItemsData, "rate" | "count">[] | []>([]);
+  const error = ref<string | null>(null);
+  const taxes = ref<string | null>(null);
+  const person = ref<PersonData>({
+    id: 0,
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    image: "",
+    status: "",
+    orderUpdates: false,
+    promotions: false,
+    newsLetter: false,
+    password: "",
+    paymentMethods: [
+      {
+        paySystem: "",
+        number: "",
+        expires: "",
+      },
+    ],
+    reviews: [
+      {
+        idProduct: 0,
+        rating: 0,
+        data: "",
+        review: "",
+      },
+    ],
+    wish: [],
+  });
+  const idPersons = ref<number>(1);
+  const orders = ref<OrderData>({
+    idPerson: 0,
+    orders: [
+      {
+        id: "",
+        date: "",
+        status: "",
+        products: [
+          {
+            idProduct: 0,
+            quantity: 0,
+            price: 0,
+          },
+        ],
+      },
+    ],
+  });
+  const countWish = ref<number>(0);
+  const countOrders = ref<number>(0);
 
   const countCartItems = computed(() => cartItems.value.length);
   const product1 = computed(() => getProduct(1));
@@ -94,11 +138,11 @@ export const useRootStore = defineStore("root", () => {
       }
     }
   }
-  async function fetchPersons(idPersons: any) {
+  async function fetchPersons(idPersons: number) {
     try {
       const data = await axios.get(URL_PERSONS);
       person.value = data?.data.find(
-        (item: { id: any }) => item.id == idPersons,
+        (item: { id: number }) => item.id === idPersons,
       );
       countWish.value = person.value.wish.length;
     } catch (e) {
@@ -116,11 +160,11 @@ export const useRootStore = defineStore("root", () => {
       }
     }
   }
-  async function fetchOrders(idPersons: any) {
+  async function fetchOrders(idPersons: number) {
     try {
       const data = await axios.get(URL_ORDERS);
       orders.value = data?.data.find(
-        (item: { idPerson: any }) => item.idPerson == idPersons,
+        (item: { idPerson: number }) => item.idPerson === idPersons,
       );
       countOrders.value = orders.value.orders.length;
     } catch (e) {
@@ -138,15 +182,15 @@ export const useRootStore = defineStore("root", () => {
       }
     }
   }
-  function addToCart(idProduct: number, count: any = 1) {
-    if (products.value) {
-      const addItem: any = cartItems.value.find(
+  async function addToCart(idProduct: number, count: number = 1) {
+    if (products.value.length >=1) {
+      const addItem = cartItems.value.find(
         ({ id }: { id: number }) => id == idProduct,
       );
       if (addItem) {
         addItem.quantity = addItem.quantity + count;
       } else {
-        const newsItem: any = products.value.find(
+        let newsItem = products.value.find(
           ({ id }: { id: number }) => id == idProduct,
         );
         if (newsItem) {
@@ -168,7 +212,6 @@ export const useRootStore = defineStore("root", () => {
       throw new Error("No news data available");
     }
   }
-watch(() => person.value, fetchPersons);
   return {
     products,
     cartItems,

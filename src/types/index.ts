@@ -12,3 +12,52 @@ export interface ProductsListData {
     count: number;
   };
 }
+export type CartItemsData = ProductsListData & {
+  quantity: number;
+};
+export interface PersonData {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  image: string;
+  status: string;
+  orderUpdates: boolean;
+  promotions: boolean;
+  newsLetter: boolean;
+  password: string;
+  paymentMethods: [
+    {
+      paySystem: string;
+      number: string;
+      expires: string;
+    },
+  ];
+  reviews: [
+    {
+      idProduct: number;
+      rating: number;
+      data: string;
+      review: string;
+    },
+  ];
+  wish: number[];
+};
+export interface OrderData {
+  idPerson: number;
+  orders: [
+    {
+      id: string;
+      date: string;
+      status: string;
+      products: [
+        {
+          idProduct: number;
+          quantity: number;
+          price: number;
+        },
+      ];
+    },
+  ];
+};
