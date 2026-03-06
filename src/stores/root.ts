@@ -7,7 +7,13 @@ import {
   URL_PERSONS,
   URL_ORDERS,
 } from "../constants/api";
-import type { ProductsListData, PersonData, CartItemsData, OrderData } from '../types/index';
+import type {
+  ProductsListData,
+  PersonData,
+  CartItemsData,
+  OrderData,
+  TaxesData,
+} from "../types/index";
 
 export const useRootStore = defineStore("root", () => {
   const products = ref<Omit<ProductsListData, "rate" | "count">[]>([
@@ -25,9 +31,9 @@ export const useRootStore = defineStore("root", () => {
     },
   ]);
   const categories = ref<string[]>([]);
-  const cartItems = ref<Omit<CartItemsData, "rate" | "count">[] | []>([]);
+  const cartItems = ref<Omit<CartItemsData, "rate" | "count">[]>([]);
   const error = ref<string | null>(null);
-  const taxes = ref<string | null>(null);
+  const taxes = ref<TaxesData[]>();
   const person = ref<PersonData>({
     id: 0,
     firstName: "",
@@ -183,19 +189,31 @@ export const useRootStore = defineStore("root", () => {
     }
   }
   async function addToCart(idProduct: number, count: number = 1) {
-    if (products.value.length >=1) {
+    if (products.value.length >= 1) {
       const addItem = cartItems.value.find(
         ({ id }: { id: number }) => id == idProduct,
       );
       if (addItem) {
         addItem.quantity = addItem.quantity + count;
       } else {
-        let newsItem = products.value.find(
+        let searchItem = products.value.find(
           ({ id }: { id: number }) => id == idProduct,
         );
-        if (newsItem) {
-          newsItem.quantity = count;
-          cartItems.value.push(newsItem);
+        const newsItem: Omit<CartItemsData, "rate" | "count"> = {
+          id: searchItem?.id || 0,
+          title: searchItem?.title || "",
+          price: searchItem?.price || 0,
+          description: searchItem?.description || "",
+          category: searchItem?.category || "",
+          image: searchItem?.image || "",
+          quantity: count,
+          rating: {
+            rate: searchItem?.rating.rate || 0,
+            count: searchItem?.rating.count || 0,
+          },
+        };
+        if (newsItem.id !=0) {
+        cartItems.value.push(newsItem);
         }
       }
     } else {

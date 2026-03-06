@@ -2,7 +2,7 @@ import { ref } from "vue";
 import axios from "axios";
 import { URL_ALL_PRODUCTS } from "../../constants/api";
 
-const error: any = ref(null);
+const error = ref();
 
 export const getNews = async () => {
   try {

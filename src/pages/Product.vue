@@ -7,7 +7,7 @@ import { useRootStore } from '../stores/root';
 const rootStore = useRootStore();
 
 const $props=defineProps(["id"]);
-const productId: any = ref($props.id);
+const productId = ref<number>($props.id);
 const product: any = ref([])
 const products = computed(() => rootStore.products);
 const quantity = ref(1);

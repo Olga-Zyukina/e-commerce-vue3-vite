@@ -12,7 +12,6 @@ onMounted(async () => {
   rootStore.fetchOrders(rootStore.idPersons);
   console.log(Object.keys(rootStore.cartItems))
   if (rootStore.countCartItems == 0 || (rootStore.countCartItems == 1 &&rootStore.cartItems[0].id == 0)) {
-    alert(5)
     rootStore.addToCart(14);
   };
 })

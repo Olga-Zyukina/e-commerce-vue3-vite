@@ -8,7 +8,7 @@ const rootStore = useRootStore();
 const cartItems = ref(rootStore.cartItems);
 const taxes = ref(rootStore.taxes);
 const totalSum = computed(() =>  cartItems.value.reduce((sum: number, item: { price: number; quantity: number; }) => sum + item.price * item.quantity, 0));
-const sumTaxes = computed(() =>  taxes.value.reduce((sum: number, item: { value: number }) => sum + item.value, 0));
+const sumTaxes = computed(() =>  taxes?.value?.reduce((sum: number, item: { value: number }) => sum + item.value, 0) || 0);
 
 const checkoutForm = () => {
   const checkoutForm = document.querySelector('.checkout-form');

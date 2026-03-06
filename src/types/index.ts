@@ -14,7 +14,7 @@ export interface ProductsListData {
 }
 export type CartItemsData = ProductsListData & {
   quantity: number;
-};
+}
 export interface PersonData {
   id: number;
   firstName: string;
@@ -43,7 +43,7 @@ export interface PersonData {
     },
   ];
   wish: number[];
-};
+}
 export interface OrderData {
   idPerson: number;
   orders: [
@@ -60,4 +60,9 @@ export interface OrderData {
       ];
     },
   ];
-};
+}
+export interface TaxesData {
+  id: number;
+  title: string;
+  value: number;
+}
