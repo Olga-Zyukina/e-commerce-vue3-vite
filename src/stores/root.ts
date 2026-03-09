@@ -20,7 +20,7 @@ export const useRootStore = defineStore("root", () => {
   const categories = ref<string[]>([]);
   const cartItems = ref<Omit<CartItemsData, "rate" | "count">[]>([]);
   const error = ref<string | null>(null);
-  const taxes = ref<TaxesData[]>();
+  const taxes = ref<TaxesData[]>([]);
   const person = ref<PersonData>({
     id: 0,
     firstName: "",

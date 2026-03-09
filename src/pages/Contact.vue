@@ -2,7 +2,6 @@
 import { onMounted } from "vue";
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
-
 // Form Validation
 const checkoutForm = () => {
   const checkoutForm = document.querySelector('.php-email-form');
@@ -31,7 +30,6 @@ onMounted(() => {
 
 <template>
   <AppHeader />
-
   <main class="main">
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
@@ -156,7 +154,6 @@ onMounted(() => {
     </section>
     <!-- End Contact Section -->
   </main>
-
   <AppFooter />
 </template>
 

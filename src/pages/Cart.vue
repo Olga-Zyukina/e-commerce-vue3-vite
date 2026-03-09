@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
 import { useRootStore } from '../stores/root';
 
 const rootStore = useRootStore();
-const cartItems = ref(rootStore.cartItems);
-const taxes = ref(rootStore.taxes);
-const totalSum = computed(() =>  cartItems.value.reduce((sum: number, item: { price: number; quantity: number; }) => sum + item.price * item.quantity, 0));
-const sumTaxes = computed(() =>  taxes.value.reduce((sum: number, item: { value: number }) => sum + item.value, 0));
+
+const totalSum = computed(() =>  rootStore.cartItems.reduce((sum: number, item: { price: number; quantity: number; }) => sum + item.price * item.quantity, 0));
+const sumTaxes = computed(() =>  rootStore.taxes.reduce((sum: number, item: { value: number }) => sum + item.value, 0));
 
 const increase = (item: { quantity: number; }) => {
   item.quantity += 1;
@@ -18,8 +17,8 @@ const decrease = (item: { quantity: number; }) => {
     item.quantity -= 1;
   }
 }
-const remove = (index: string | number) => {
-  cartItems.value.splice(index, 1);
+const remove = (index: number) => {
+  rootStore.cartItems.splice(index, 1);
 }
 </script>
 
@@ -64,7 +63,7 @@ const remove = (index: string | number) => {
                   </div>
                 </div>
               </div>
-              <div v-for="(item, index) in cartItems" :key="index" class="cart-item">
+              <div v-for="(item, index) in rootStore.cartItems" :key="index" class="cart-item">
                 <div class="row align-items-center">
                   <div class="col-lg-6 col-12 mt-3 mt-lg-0 mb-lg-0 mb-3">
                     <div class="product-info d-flex align-items-center">
@@ -112,7 +111,7 @@ const remove = (index: string | number) => {
                 <span class="summary-label">Subtotal</span>
                 <span class="summary-value">${{ totalSum.toFixed(2) }}</span>
               </div>
-              <div v-for="tax in taxes" :key="tax.id" class="summary-item">
+              <div v-for="tax in rootStore.taxes" :key="tax.id" class="summary-item">
                 <span class="summary-label">{{ tax.title }}</span>
                 <span class="summary-value">{{ (totalSum * tax.value).toFixed(2) }}$</span>
               </div>

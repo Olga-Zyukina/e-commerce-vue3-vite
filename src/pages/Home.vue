@@ -228,10 +228,8 @@ watch(() => products.value, startFetching);
               </div>
               <div class="product-info">
                 <div class="product-category">{{ product.category }}</div>
-                <h4 class="product-name">
-                  <!-- <RouterLink :to="{ name: 'product' }"> -->
-                                      <RouterLink :to="{ name: 'product', params: { id: product.id } }">
-
+               <h4 class="product-name">
+                  <RouterLink :to="{ name: 'product', params: { id: product.id } }">
                     {{ product.title }}
                   </RouterLink>
                 </h4>

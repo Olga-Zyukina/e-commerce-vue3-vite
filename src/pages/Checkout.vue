@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { computed, ref, onMounted } from "vue";
+import { computed, onMounted } from "vue";
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
 import { useRootStore } from '../stores/root';
 
 const rootStore = useRootStore();
-const cartItems = ref(rootStore.cartItems);
-const taxes = ref(rootStore.taxes);
-const totalSum = computed(() =>  cartItems.value.reduce((sum: number, item: { price: number; quantity: number; }) => sum + item.price * item.quantity, 0));
-const sumTaxes = computed(() =>  taxes?.value?.reduce((sum: number, item: { value: number }) => sum + item.value, 0) || 0);
+const totalSum = computed(() =>  rootStore.cartItems.reduce((sum: number, item: { price: number; quantity: number; }) => sum + item.price * item.quantity, 0));
+const sumTaxes = computed(() =>  rootStore.taxes.reduce((sum: number, item: { value: number }) => sum + item.value, 0) || 0);
 
 const checkoutForm = () => {
   const checkoutForm = document.querySelector('.checkout-form');
@@ -70,7 +68,6 @@ onMounted(() => {
 
 <template>
   <AppHeader />
-
   <main class="main">
     <div class="page-title">
       <div class="container d-lg-flex justify-content-between align-items-center">
@@ -252,11 +249,11 @@ onMounted(() => {
             <div class="order-summary" data-aos="fade-left" data-aos-delay="200">
               <div class="order-summary-header">
                 <h3>Order Summary</h3>
-                <span class="item-count">{{ cartItems.length }} Items</span>
+                <span class="item-count">{{ rootStore.cartItems.length }} Items</span>
               </div>
               <div class="order-summary-content">
                 <div class="order-items">
-                  <div v-for="(item, index) in cartItems" :key="index" class="order-item">
+                  <div v-for="(item, index) in rootStore.cartItems" :key="index" class="order-item">
                     <div class="order-item-image">
                       <img :src="item.image" :alt="item.title" class="img-fluid">
                     </div>
@@ -280,7 +277,7 @@ onMounted(() => {
                     <span>Subtotal</span>
                     <span>{{ totalSum.toFixed(2) }}$</span>
                   </div>
-                  <div v-for="tax in taxes" :key="tax.id" class="order-tax d-flex justify-content-between">
+                  <div v-for="tax in rootStore.taxes" :key="tax.id" class="order-tax d-flex justify-content-between">
                     <span>{{ tax.title }}</span>
                     <span>{{ (totalSum * tax.value).toFixed(2) }}$</span>
                   </div>
@@ -308,7 +305,6 @@ onMounted(() => {
     </section>
     <!-- End Checkout Section -->
   </main>
-
   <AppFooter />
 </template>
 
