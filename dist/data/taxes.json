@@ -1,0 +1,14 @@
+[
+  { "id": 1,
+    "title": "Tax",
+    "value":  0.20
+  },
+  { "id": 2,
+    "title": "Shipping",
+    "value":  0.05
+  },
+  { "id": 3,
+    "title": "Discount",
+    "value":  -0.10
+  }
+]
