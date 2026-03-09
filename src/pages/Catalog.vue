@@ -3,11 +3,14 @@ import { computed, onMounted, ref, watch } from "vue";
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
 import { useRootStore } from '../stores/root';
+import type { ProductsListData } from "../types/index";
 
 const rootStore = useRootStore();
 const products = computed(() => rootStore.products);
-const filteredList: any = ref([]);
-const selectedCategory: any = ref(rootStore.categories);
+const filteredList = ref<Omit<ProductsListData, "rate" | "count">[]>([]);
+const selectedCategory = ref(rootStore.categories);
+// const selectedCategory = computed(() => rootStore.categories);
+
 const sliderMinValue = ref(0);
 const sliderMaxValue = ref(1000);
 const searchValue = ref("");
@@ -43,8 +46,8 @@ const changePage = (pageNumber: number) => {
   }
 }
 const filter = () => {
-  filteredList.value = products.value.filter((item: { category: any; price: number; title: any} ) => 
-    (item.category == selectedCategory.value.find((i: any) => 
+  filteredList.value = products.value.filter((item: { category: string; price: number; title: string} ) => 
+    (item.category == selectedCategory.value.find((i: string) => 
       i == item.category)
     ) 
     &&
@@ -55,35 +58,35 @@ const filter = () => {
   switch (selectedSort.value) {
     case 1:
       filteredList.value.sort(
-        (a: { rating: { count: any; }; }, b: { rating: { count: any; }; }) =>
+        (a: { rating: { count: number; }; }, b: { rating: { count: number; }; }) =>
           (b.rating.count || 0) -
           (a.rating.count || 0)
       )
       break;
     case 3:
       filteredList.value.sort(
-        (a: { price: any; }, b: { price: any; }) =>
+        (a: { price: number; }, b: { price: number; }) =>
           (b.price || 0) -
           (a.price || 0)
       )
       break;
     case 2:
       filteredList.value.sort(
-        (a: { price: any; }, b: { price: any; }) =>
+        (a: { price: number; }, b: { price: number; }) =>
           (a.price || 0) -
           (b.price || 0)
       )
       break;
     case 4:
       filteredList.value.sort(
-        (a: { rating: { rate: any; }; }, b: { rating: { rate: any; }; }) =>
+        (a: { rating: { rate: number; }; }, b: { rating: { rate: number; }; }) =>
           (b.rating.rate || 0) -
           (a.rating.rate || 0)
       )
       break;
     default:
       filteredList.value.sort(
-        (a: { rating: { count: any; }; }, b: { rating: { count: any; }; }) =>
+        (a: { rating: { count: number; }; }, b: { rating: { count: number; }; }) =>
           (b.rating.count || 0) -
           (a.rating.count || 0)
       )

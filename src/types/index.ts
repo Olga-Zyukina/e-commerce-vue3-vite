@@ -14,7 +14,7 @@ export interface ProductsListData {
 }
 export type CartItemsData = ProductsListData & {
   quantity: number;
-}
+};
 export interface PersonData {
   id: number;
   firstName: string;
@@ -65,4 +65,36 @@ export interface TaxesData {
   id: number;
   title: string;
   value: number;
+}
+export interface NormalizeOrdersData {
+  id: string;
+  date: string;
+  status: string;
+  totalSum: number;
+  products: ItemFullOrdersData[];
+}
+export type ItemFullOrdersData = {
+  idProduct: number;
+  title: string;
+  image: string;
+  price: number;
+  quantity: number;
+};
+export interface NormalizeWishData {
+  id: number;
+  title: string;
+  image: string;
+  rate: number;
+  count: number;
+  price: number;
+}
+export interface NormalizeReviewsData {
+  idProduct: number;
+  date: string;
+  rating: number;
+  review: string;
+  title: string;
+  image: string;
+  rate: number;
+  count: number;
 }

@@ -16,20 +16,7 @@ import type {
 } from "../types/index";
 
 export const useRootStore = defineStore("root", () => {
-  const products = ref<Omit<ProductsListData, "rate" | "count">[]>([
-    {
-      id: 0,
-      title: "",
-      price: 0,
-      description: "",
-      category: "",
-      image: "",
-      rating: {
-        rate: 0,
-        count: 0,
-      },
-    },
-  ]);
+  const products = ref<Omit<ProductsListData, "rate" | "count">[]>([]);
   const categories = ref<string[]>([]);
   const cartItems = ref<Omit<CartItemsData, "rate" | "count">[]>([]);
   const error = ref<string | null>(null);
@@ -44,7 +31,7 @@ export const useRootStore = defineStore("root", () => {
     status: "",
     orderUpdates: false,
     promotions: false,
-    newsLetter: false,
+    newsLetter: true,
     password: "",
     paymentMethods: [
       {

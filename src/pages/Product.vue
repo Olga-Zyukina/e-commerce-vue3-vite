@@ -1,18 +1,27 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
 import { useRootStore } from '../stores/root';
+import type { ProductsListData } from '../types/index';
 
 const rootStore = useRootStore();
-
 const $props=defineProps(["id"]);
-const productId = ref<number>($props.id);
-const product: any = ref([])
+const productId = ref($props.id);
+const product = ref<Omit<ProductsListData, "rate" | "count">>({
+  id: 0,
+  title: "",
+  price: 0,
+  description: "",
+  category: "",
+  image: "",
+  rating: {
+    rate: 0,
+    count: 0,
+  }
+});
 const products = computed(() => rootStore.products);
 const quantity = ref(1);
-
-product.value = products.value.find(({ id }: { id: number }) => id == productId.value);
 
 const increase = () => {
   quantity.value += 1;
@@ -22,6 +31,26 @@ const decrease = () => {
     quantity.value -= 1;
   }
 }
+
+const startFetching = async () => {
+  let searchItem = products?.value?.find(({ id }: { id: number }) => id == productId.value);
+  product.value = {
+    id: searchItem?.id || 0,
+    title: searchItem?.title || "",
+    price: searchItem?.price || 0,
+    description: searchItem?.description || "",
+    category: searchItem?.category || "",
+    image: searchItem?.image || "",
+    rating: {
+      rate: searchItem?.rating.rate || 0,
+      count: searchItem?.rating.count || 0,
+    },
+  };
+};
+
+onMounted(() => {
+  startFetching();
+});
 </script>
 
 <template>

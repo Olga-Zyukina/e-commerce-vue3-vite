@@ -10,7 +10,6 @@ onMounted(async () => {
   rootStore.fetchTaxes();
   rootStore.fetchPersons(rootStore.idPersons);
   rootStore.fetchOrders(rootStore.idPersons);
-  console.log(Object.keys(rootStore.cartItems))
   if (rootStore.countCartItems == 0 || (rootStore.countCartItems == 1 &&rootStore.cartItems[0].id == 0)) {
     rootStore.addToCart(14);
   };

@@ -6,16 +6,7 @@ import { useRootStore } from '../stores/root';
 import type { ProductsListData } from '../types/index';
 
 const rootStore = useRootStore();
-const productsList = ref<Omit<ProductsListData, "rating">[]>([{
-        id: 0,
-        title: '',
-        price: 0,
-        description: '',
-        category: '',
-        image: '',
-        rate: 0,
-        count: 0,
-}]);
+const productsList = ref<Omit<ProductsListData, "rating">[]>([]);
 const loading = ref(true);
 const products = computed(() => rootStore.products);
 const bestSellers = computed(() => {

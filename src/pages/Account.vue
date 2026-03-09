@@ -1,88 +1,90 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import AppHeader from "../components/Header.vue";
 import AppFooter from "../components/Footer.vue";
 import { useRootStore } from '../stores/root';
 import { useRoute } from "vue-router";
+import type { NormalizeOrdersData, ItemFullOrdersData, NormalizeWishData, NormalizeReviewsData } from '../types/index'
 
 const rootStore = useRootStore();
 const route = useRoute();
 
-const person = ref(rootStore.person);
-const ordersList: any = ref([]);
-const wishList: any = ref([]);
-const reviewsList: any = ref([]);
+const person = computed(() =>  rootStore.person);
+// const person = ref(rootStore.person);
+
+const ordersList = ref<NormalizeOrdersData[]>([]);
+const wishList = ref<NormalizeWishData[]>([]);
+const reviewsList = ref<NormalizeReviewsData[]>([]);
 
 const normalizeOrders = async () => {
   try {
-    const dataArray: any = [];
-    if (rootStore.orders.orders) {
-      Object.values(rootStore.orders.orders).forEach((value: any) => {
-        let data: any = {
-          id: value.id,
-          date: value.date,
-          status: value.status,
-          totalSum: value.products.reduce((sum: number, item: { price: number; quantity: number; }) => sum + item.price * item.quantity, 0),
-          products: []
+    const orders: NormalizeOrdersData[] = [];
+    Object.values(rootStore.orders.orders).forEach((value) => {
+      let products: ItemFullOrdersData[] = []
+      Object.values(value?.products).forEach((product) => {
+        let idProduct = product?.idProduct;
+        let infoProduct = rootStore.getProduct(idProduct);
+        let item = {
+          idProduct: idProduct,
+          title: infoProduct.title,
+          image: infoProduct.image,
+          price: product.price,
+          quantity: product.quantity,
         };
-        Object.values(value.products).forEach((product: any) => {
-          let item = {
-            idProduct: product.idProduct,
-            title: rootStore.getProduct(product.idProduct).title,
-            image: rootStore.getProduct(product.idProduct).image,
-            price: product.price,
-            quantity: product.quantity,
-          };
-          data.products.push(item);
-        });
-        dataArray.push(data);
+        products.push(item);
       });
-      return dataArray;
-    }
+      let order = {
+        id: value.id,
+        date: value.date,
+        status: value.status,
+        totalSum: value.products.reduce((sum: number, item: { price: number; quantity: number; }) => sum + item.price * item.quantity, 0),
+        products: [...products],
+      };
+      orders.push(order);
+    });
+    return orders;
   } catch {
     return [];
   }
 }
 const normalizeWish = async () => {
   try {
-    const dataArray: any = [];
-    if (rootStore.person.wish) {
-      (rootStore.person.wish).forEach((value: any) => {
-        let data: any = {
-          id: value,
-          title: rootStore.getProduct(value).title,
-          image: rootStore.getProduct(value).image,
-          rate: rootStore.getProduct(value).rating.rate,
-          count: rootStore.getProduct(value).rating.count,
-          price: rootStore.getProduct(value).price,
-        };
-        dataArray.push(data);
-      });
-      return dataArray;
-    }
+    const wishList: NormalizeWishData[] = [];
+    (rootStore.person.wish).forEach((id: number) => {
+      let itemWishList = rootStore.getProduct(id);
+      let wish: NormalizeWishData = {
+        id: id,
+        title: itemWishList.title,
+        image: itemWishList.image,
+        rate: itemWishList.rating.rate,
+        count: itemWishList.rating.count,
+        price: itemWishList.price,
+      };
+      wishList.push(wish);
+    });
+    return wishList;
   } catch {
     return [];
   }
 }
 const normalizeReviews = async () => {
   try {
-    const dataArray: any = [];
-    if (rootStore.person.reviews) {
-      (rootStore.person.reviews).forEach((value: any) => {
-        let data: any = {
-          idProduct: value.idProduct,
-          date: value.data,
-          rating: value.rating,
-          review: value.review,
-          title: rootStore.getProduct(value.idProduct).title,
-          image: rootStore.getProduct(value.idProduct).image,
-          rate: rootStore.getProduct(value.idProduct).rating.rate,
-          count: rootStore.getProduct(value.idProduct).rating.count,
-        };
-        dataArray.push(data);
-      });
-      return dataArray;
-    }
+    const reviewsList: NormalizeReviewsData[] = [];
+    (rootStore.person.reviews).forEach((value) => {
+      let reviewInfo = rootStore.getProduct(value.idProduct);
+      let review: NormalizeReviewsData = {
+        idProduct: value.idProduct,
+        date: value.data,
+        rating: value.rating,
+        review: value.review,
+        title: reviewInfo.title,
+        image: reviewInfo.image,
+        rate: reviewInfo.rating.rate,
+        count: reviewInfo.rating.count,
+      };
+      reviewsList.push(review);
+    });
+    return reviewsList;
   } catch {
     return [];
   }
@@ -96,9 +98,9 @@ const fetchData = async () => {
     throw new Error("No news data available");
   }
 };
-const removeWish = (index: any) => {
-  wishList.value.splice(index, 1);
-  rootStore.person.wish.splice(index, 1);
+const removeWish = (index: number | string) => {
+  wishList.value.splice(+index, 1);
+  rootStore.person.wish.splice(+index, 1);
   rootStore.countWish--;
 }
 const checkoutForm = () => {
@@ -135,7 +137,7 @@ const checkoutForm = () => {
   });
 }
 const setContentArea = () => {
-  const idContent: any = ref(route?.hash);
+  const idContent = ref(route?.hash);
   const getLinkActive = document.querySelector(".account .active");
   const getContentActive = document.querySelector(".account .active.show");
   const setLinkActive = document.querySelector(`a[href="${idContent.value}"]`);
@@ -430,7 +432,7 @@ onMounted(() => {
                             <p>Subscribe to our weekly newsletter</p>
                           </div>
                           <div class="form-check form-switch">
-                            <input v-model="person.newsletter" class="form-check-input" type="checkbox" id="newsletter">
+                            <input v-model="person.newsLetter" class="form-check-input" type="checkbox" id="newsletter">
                           </div>
                         </div>
                       </div>
