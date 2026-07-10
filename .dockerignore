@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.vscode
+.gitignore
+.dockerignore
+README.md
+Screenshot.png
+Screenshot_account.png
+Screenshot_catalog.png
+Screenshot_product.png
