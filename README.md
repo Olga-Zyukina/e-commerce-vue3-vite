@@ -67,6 +67,24 @@ src/
 - Adaptive layout for all screen sizes;
 - Smooth transitions and animations.
 
+## Development
+- Make sure you have Node.js installed.
+- Clone the repo to your machine.
+- Install all dependencies
+`npm install`
+- Development:
+`npm run dev`
+- Production:
+`npm run build`
+
+## Docker
+- Building image
+`docker build .`
+- Building images & run containers
+`docker compose up`<br/>
+Open browser in Development mode: localhost:5173<br/>
+Open browser in Production mode: localhost:5174
+
 <div><img src="https://github.com/Olga-Zyukina/e-commerce-vue3-vite/blob/master/Screenshot.png" title="e-commerce-vue3-vite" alt="e-commerce-vue3-vite"/></div>
 Catalog page
 <div><img src="https://github.com/Olga-Zyukina/e-commerce-vue3-vite/blob/master/Screenshot_catalog.png" title="e-commerce-vue3-vite" alt="e-commerce-vue3-vite"/></div>
