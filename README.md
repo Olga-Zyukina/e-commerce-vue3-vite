@@ -36,7 +36,7 @@ src/
 ├── pages/          # Vue pages
 ├── plugins/        # Plugins
 ├── assets/         # Pinia stores
-├── assets/         # Static assets
+├── stores/         # Static assets
 └── app.vue         # Root component
 └── error.vue       # Error component
 ```
