@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "cart": [
+      {
+        "idProduct": 14,
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "cart": [
+      {
+        "idProduct": 1,
+        "count": 2
+      },
+      {
+        "idProduct": 5,
+        "count": 1
+      }
+    ]
+  }
+]
