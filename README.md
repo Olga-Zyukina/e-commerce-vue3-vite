@@ -18,7 +18,7 @@ The application includes such pages as home, store information, product catalog,
 -  Nuxt 3
 -  TypeScript
 -  Vite
--  Bootstrap v5.3.7
+-  Bootstrap
 -  Vue-router
 -  Pinia
 -  Vue-countdown
