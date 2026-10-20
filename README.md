@@ -1,5 +1,5 @@
 # E-commerce
-An e-commerce application developed using Vue 3 + TypeScript + Vite.
+An e-commerce application developed using Vue3 + Nuxt3 + TypeScript + Vite.
 The application includes such pages as home, store information, product catalog, product card, shopping cart, checkout, personal account, contacts.
 
 ## Features
@@ -15,13 +15,12 @@ The application includes such pages as home, store information, product catalog,
 ## Technologies used
 
 -  Vue 3
+-  Nuxt 3
 -  TypeScript
 -  Vite
 -  Bootstrap v5.3.7
 -  Vue-router
--  Axios
 -  Pinia
--  AOS
 -  Vue-countdown
 
 ## Live Demo
@@ -33,10 +32,13 @@ Check out the live demo: [E-commerce](https://olga-zyukina.github.io/e-commerce-
 ```
 src/
 ├── components/     # Vue components
+├── composables/    # Functions
 ├── pages/          # Vue pages
-├── services/       # Functions
+├── plugins/        # Plugins
+├── assets/         # Pinia stores
 ├── assets/         # Static assets
-└── App.vue         # Root component
+└── app.vue         # Root component
+└── error.vue       # Error component
 ```
 
 ## Features in Detail
@@ -76,6 +78,8 @@ src/
 `npm run dev`
 - Production:
 `npm run build`
+- Static:
+`npm run generate`
 
 ## Docker
 - Building image
