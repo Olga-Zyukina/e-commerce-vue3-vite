@@ -6,10 +6,11 @@ const {
   url,
   defaultLocale,
 } = siteMeta
+
 export default defineNuxtConfig({
   target: "static", 
   router: {
-    base: '/my-project/dist/' 
+    base: '/e-commerce-vue3-vite/dist/' 
   },
   routeRules: {
     account: { ssr: false },
@@ -27,7 +28,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: false },
   app: {
-    baseURL: "/my-project/dist/",
+    baseURL: "/e-commerce-vue3-vite/dist/",
     head: {
       title: title,
       charset: "utf-8",
@@ -66,19 +67,10 @@ export default defineNuxtConfig({
       mode: "client",
     },
   ],
-  // site: {
-  //   url: url,
-  //   name: title,
-  //   description: description,
-  //   defaultLocale: defaultLocale,
-  // },
   robots: {
     blockNonSeoBots: true,
-    // robotsTxt: false,
   },
   sitemap: {
-    // https://nuxtseo.com/docs/sitemap/getting-started/troubleshooting
-    // Open {{site.url}}/sitemap.xml
     xslColumns: [
       { label: 'URL', width: '50%' },
       { label: 'Last Modified', select: 'sitemap:lastmod', width: '12.5%' },
