@@ -1,7 +1,8 @@
 {
-  "name": "my-project",
-  "type": "module",
+  "name": "e-commerce-vue3-vite",
   "private": true,
+  "version": "2.0.0",
+  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
